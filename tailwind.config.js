@@ -10,6 +10,9 @@ module.exports = {
         landscape: "url('/images/landscape/2.jpg')",
       }),
     },
+    screens: {
+      md: '882px',
+    },
   },
   variants: {
     extend: {
