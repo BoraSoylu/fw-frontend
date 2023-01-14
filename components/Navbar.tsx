@@ -3,17 +3,21 @@ import Link from 'next/link';
 
 const Navbar = () => {
   return (
-    <ul className="bg-black">
-      <li className="bg-black">
-        <Link href="/" className="bg-black">
+    <ul className="flex justify-between items-center text-sm font-medium text-gray-700 bg-gray-200 p-2">
+      <li className="mr-6">
+        <Link href="/" className="hover:text-indigo-500">
           Home
         </Link>
       </li>
-      <li>
-        <Link href="/about">About</Link>
+      <li className="mr-6">
+        <Link href="/about" className="hover:text-indigo-500">
+          About
+        </Link>
       </li>
-      <li>
-        <Link href="/faq">FAQ</Link>
+      <li className="mr-6">
+        <Link href="/faq" className="hover:text-indigo-500">
+          FAQ
+        </Link>
       </li>
     </ul>
   );
