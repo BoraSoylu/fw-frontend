@@ -1,5 +1,4 @@
 import Head from 'next/head';
-import {ThemeProvider} from 'next-themes'
 export default function Home() {
   return (
     <div>

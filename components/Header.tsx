@@ -9,11 +9,11 @@ export const Header = () => {
   const activeTab =
     'text-gray-800 dark:text-white  hover:text-gray-800 dark:hover:text-white px-3 py-2 rounded-md text-md font-medium min-w-fit';
   const inactiveTab =
-    'text-gray-400 dark:text-gray-300  hover:text-gray-800 dark:hover:text-white px-3 py-2 rounded-md text-md font-medium min-w-fit';
+    'text-gray-400 dark:text-gray-400  hover:text-gray-800 dark:hover:text-white px-3 py-2 rounded-md text-md font-medium min-w-fit';
   const activeBurgerTab =
     'text-gray-800 dark:text-white block px-3 py-2 rounded-md text-base font-medium';
   const inactiveBurgerTab =
-    'text-gray-400 dark:text-gray-300 hover:text-gray-800 dark:hover:text-white block px-3 py-2 rounded-md text-base font-medium';
+    'text-gray-400 dark:text-gray-400 hover:text-gray-800 dark:hover:text-white block px-3 py-2 rounded-md text-base font-medium';
 
   const [darkTheme, setDarkTheme] = useState(false);
   useEffect(() => {
