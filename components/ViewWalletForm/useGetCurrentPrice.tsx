@@ -10,7 +10,6 @@ export const useGetCurrentPrice = (walletData: any, vs_currencies: any, setCurre
   SimplePriceString = `${SimplePriceString.slice(0, -3)}&vs_currencies=${vs_currencies}`;
   const fetcher = (url: any) => fetch(url).then((res) => res.json());
   const { data, error } = useSWR(SimplePriceString, fetcher);
-  console.log(data);
   if (data) {
     setCurrentPrice(data);
     return data;
