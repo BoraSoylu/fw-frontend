@@ -98,7 +98,7 @@ export const Header = () => {
                 <div>
                   <div className="relative inline-block w-10 mr-2 align-middle select-none">
                     <input
-                      onClick={() => {
+                      onChange={() => {
                         document.documentElement.classList.toggle('dark');
                         setDarkTheme(!darkTheme);
                         handleDarkThemeChange();
