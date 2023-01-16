@@ -1,30 +1,34 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import useSWR from 'swr';
 
 export default function ViewWalletFrom({ walletData }: any) {
-  const useGetCoinData = (walletData: any, coinsPriceHistory: any) => {
-    // Create id list for coingecko
-    let coinIdString: string = '';
+  const [currentPrice, setCurrentPrice] = useState(null);
+  const [vs_currencies, setVs_currencies] = useState('usd');
+  useEffect(() => {
+    let SimplePriceString: string = 'https://api.coingecko.com/api/v3/simple/price?ids=';
     Object.keys(walletData.contents).forEach((coin) => {
-      coinIdString += walletData.contents[coin].id + ',';
-      console.log(coin, walletData.contents[coin].id);
+      SimplePriceString += walletData.contents[coin].id + '%2C';
     });
-    coinIdString = coinIdString.slice(0, -1);
-    // const { data, error, isLoading } = useSWR('/api/user/123', fetcher);
-    // if (error) return <div>failed to load</div>;
-    // if (isLoading) return <div>loading...</div>;
-    const { data, error, isLoading } = useSWR('/api/user', fetcher);
-    console.log(walletData);
-  };
+    SimplePriceString = `${SimplePriceString.slice(0, -3)}&vs_currencies=${vs_currencies}`;
+    const fetcher = (url: any) => fetch(url).then((res) => res.json());
+    fetch(SimplePriceString)
+      .then((res) => res.json())
+      .then((json) => {
+        setCurrentPrice(json);
+      });
+  }, []);
 
-  const [coinsPriceHistory, setCoinsPriceHistory] = useState([]);
-  useGetCoinData(walletData, coinsPriceHistory);
-  return (
-    <div>
-      <p>Wallet: {JSON.stringify(walletData)}</p>
-      <br />
-      <p>{coinsPriceHistory}</p>
-      <br />
-    </div>
-  );
+  if (currentPrice === null) {
+    return <div>loading</div>;
+  } else {
+    return (
+      <div>
+        <p>Wallet: {JSON.stringify(walletData)}</p>
+        <br />
+        <p>{`Bought at: ${JSON.stringify(currentPrice)}`}</p>
+        <p>{`Currently:${JSON.stringify(currentPrice)}`}</p>
+        <br />
+      </div>
+    );
+  }
 }
