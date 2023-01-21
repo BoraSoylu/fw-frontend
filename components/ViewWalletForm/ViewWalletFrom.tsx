@@ -27,7 +27,10 @@ export default function ViewWalletFrom({
   return (
     <div>
       <div className="container max-w-3xl px-4 mx-auto sm:px-8">
-        <div className="py-8">
+        <h2 className="text-center pt-8 text-2xl text-gray-700 ">
+          Contents of Your Wallet
+        </h2>
+        <div className="py-4">
           <div className="px-4 py-4 -mx-4 overflow-x-auto sm:-mx-8 sm:px-8">
             <div className="inline-block min-w-full overflow-hidden rounded-lg shadow">
               <table className="min-w-full leading-normal">
@@ -37,19 +40,19 @@ export default function ViewWalletFrom({
                       scope="col"
                       className="px-5 py-3 text-sm font-normal text-left text-gray-800 uppercase bg-white border-b border-gray-200"
                     >
-                      Coin
+                      {'Coin (Symbol)'}
                     </th>
                     <th
                       scope="col"
-                      className="px-5 py-3 text-sm font-normal text-left text-gray-800 uppercase bg-white border-b border-gray-200"
+                      className="px-5 py-3 text-sm font-normal text-end text-gray-800 uppercase bg-white border-b border-gray-200"
                     >
-                      Symbol
+                      Current
                     </th>
                     <th
                       scope="col"
-                      className="px-5 py-3 text-sm font-normal text-left text-gray-800 uppercase bg-white border-b border-gray-200"
+                      className="px-5 py-3 text-sm font-normal text-end text-gray-800 uppercase bg-white border-b border-gray-200"
                     >
-                      Price
+                      Bought
                     </th>
                     <th
                       scope="col"
@@ -75,19 +78,31 @@ export default function ViewWalletFrom({
                           </div>
                           <div className="ml-3">
                             <p className="text-gray-900 whitespace-no-wrap">
-                              {coin.name}
+                              {`${coin.name} (${coin.symbol.toUpperCase()})`}
                             </p>
                           </div>
                         </div>
                       </td>
                       <td className="px-5 py-5 text-sm bg-white border-b border-gray-200">
-                        <p className="text-gray-900 whitespace-no-wrap">
-                          {coin.symbol}
-                        </p>
+                        <div>
+                          <p className="text-gray-900 whitespace-no-wrap  text-end">
+                            {'$123456'}
+                          </p>
+                          <p className="text-gray-500 whitespace-no-wrap text-end  text-xs">
+                            {`= 1,00 ${coin.symbol.toUpperCase()}`}
+                          </p>
+                        </div>
                       </td>
                       <td className="px-5 py-5 text-sm bg-white border-b border-gray-200">
                         <p className="text-gray-900 whitespace-no-wrap">
-                          {coin.price}
+                          <div>
+                            <p className="text-gray-900 whitespace-no-wrap  text-end">
+                              {`$${coin.price}`}
+                            </p>
+                            <p className="text-gray-500 whitespace-no-wrap text-end  text-xs">
+                              {`= ${coin.amount} ${coin.symbol.toUpperCase()}`}
+                            </p>
+                          </div>
                         </p>
                       </td>
                       <td className="px-5 py-5 text-sm bg-white border-b border-gray-200">
