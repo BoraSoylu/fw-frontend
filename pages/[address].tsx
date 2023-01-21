@@ -1,6 +1,9 @@
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
-import { WalletFormData, WalletFormDataType } from '../components/types/WalletFormDisplay';
+import {
+  WalletFormData,
+  WalletFormDataType,
+} from '../components/types/WalletFormDisplay';
 import ViewWalletFrom from '../components/ViewWalletForm/ViewWalletFrom';
 const mockApiCall = {
   address: 'LDA326JKNR',
@@ -42,23 +45,26 @@ const mockApiCall = {
 const WalletView = () => {
   const router = useRouter();
   const { address } = router.query;
-  const [walletData, setWalletData] = useState<WalletFormDataType | undefined>(undefined);
+  const [walletData, setWalletData] = useState<WalletFormDataType | undefined>(
+    undefined
+  );
 
   // ****** Mock fw api getWallet response ******
 
   // ****** Mock fw api getWallet response ******
   // ****** Fixed fw api wallet response ******
   useEffect(() => {
-    // const fixedURL = 'https://www.farazywallet.com/api/v1/wallet?address=LDA326JKNR';
-    // fetch(fixedURL)
-    //   .then((response) => response.json())
-    //   .then((data) => {
-    //     console.log(data);
-    //   })
-    //   .catch((err) => {
-    //     console.log(err);
-    //   });
-    setWalletData(WalletFormData.parse  (mockApiCall));
+    const fixedURL =
+      'https://www.farazywallet.com/api/v1/wallet?address=BG596TCG57';
+    fetch(fixedURL)
+      .then((response) => response.json())
+      .then((data) => {
+        console.log(data);
+        setWalletData(WalletFormData.parse(data));
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   }, []);
   // ****** Fixed fw api wallet response *****
 

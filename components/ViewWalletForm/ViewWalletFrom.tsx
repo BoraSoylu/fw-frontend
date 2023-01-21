@@ -28,7 +28,7 @@ export default function ViewWalletFrom({
     <div>
       <div className="container max-w-3xl px-4 mx-auto sm:px-8">
         <h2 className="text-center pt-8 text-2xl text-gray-700 ">
-          Contents of Your Wallet
+          Contents of Your Farazy Wallet
         </h2>
         <div className="py-4">
           <div className="px-4 py-4 -mx-4 overflow-x-auto sm:-mx-8 sm:px-8">
@@ -94,16 +94,14 @@ export default function ViewWalletFrom({
                         </div>
                       </td>
                       <td className="px-5 py-5 text-sm bg-white border-b border-gray-200">
-                        <p className="text-gray-900 whitespace-no-wrap">
-                          <div>
-                            <p className="text-gray-900 whitespace-no-wrap  text-end">
-                              {`$${coin.price}`}
-                            </p>
-                            <p className="text-gray-500 whitespace-no-wrap text-end  text-xs">
-                              {`= ${coin.amount} ${coin.symbol.toUpperCase()}`}
-                            </p>
-                          </div>
-                        </p>
+                        <div className="text-gray-900 whitespace-no-wrap">
+                          <p className="text-gray-900 whitespace-no-wrap  text-end">
+                            {`$${coin.price}`}
+                          </p>
+                          <p className="text-gray-500 whitespace-no-wrap text-end  text-xs">
+                            {`= ${coin.amount} ${coin.symbol.toUpperCase()}`}
+                          </p>
+                        </div>
                       </td>
                       <td className="px-5 py-5 text-sm bg-white border-b border-gray-200">
                         <span className="relative inline-block px-3 py-1 font-semibold leading-tight text-green-900">
