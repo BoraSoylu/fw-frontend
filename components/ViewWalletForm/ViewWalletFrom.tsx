@@ -15,7 +15,7 @@ export default function ViewWalletFrom({
   useEffect(() => {
     let contentsCoinsArr: CoinDetailsViewType[] | any = [];
     Object.keys(walletData.contents).map(
-      (contentsCoinKey, i) =>
+      (contentsCoinKey: any, i) =>
         contentsCoinsArr.push(walletData.contents[contentsCoinKey]) // ?? wat?
     );
     console.log(contentsCoinsArr);
@@ -26,7 +26,6 @@ export default function ViewWalletFrom({
   }
   return (
     <div>
-      <div>{`Wallet data from props: ${JSON.stringify(walletData)}`}</div>;
       <div className="container max-w-3xl px-4 mx-auto sm:px-8">
         <div className="py-8">
           <div className="px-4 py-4 -mx-4 overflow-x-auto sm:-mx-8 sm:px-8">

@@ -65,7 +65,6 @@ const WalletView = () => {
   if (walletData) {
     return (
       <>
-        <p>Address is: {address}</p>
         <ViewWalletFrom walletData={walletData} />
       </>
     );
