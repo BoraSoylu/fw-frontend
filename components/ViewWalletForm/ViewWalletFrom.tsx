@@ -1,8 +1,7 @@
 import { useEffect, useState } from 'react';
 import useSWR from 'swr';
+import { WalletFormData } from '../types/WalletFormDisplay';
 
-type DisplayWalletStanding = {};
-
-export default function ViewWalletFrom({ walletData }: any) {
+export default function ViewWalletFrom({ walletData }: { walletData: WalletFormData }) {
   return <div>ViewWalletForm</div>;
 }
