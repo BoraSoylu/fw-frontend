@@ -139,8 +139,10 @@ export default function ViewWalletFrom({ walletData }: { walletData: WalletFormD
                         <div className="flex items-center w-max h-max">
                           <div className="flex-shrink-0">
                             <a
-                              href="#"
+                              href={`https://www.google.com/search?q=${coin.name}`}
+                              target="_blank"
                               className="relative block mx-auto object-cover rounded-full h-7 w-7"
+                              rel="noreferrer"
                             >
                               <Image
                                 alt="Icon of the crypto currency"
