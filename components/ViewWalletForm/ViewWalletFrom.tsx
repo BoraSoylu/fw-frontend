@@ -4,30 +4,37 @@ import {
   CoinDetailsViewType,
   WalletContentsType,
 } from '../types/WalletFormDisplay';
-
-type PriceHistoryType = {
-  id: string;
-  price: number;
-  date: Date;
-};
+import { CoinsSlashMarkets } from '../types/CoinGeckoTypes';
+import Image from 'next/image';
 
 export default function ViewWalletFrom({ walletData }: { walletData: WalletFormDataType }) {
-  const [contentsCoins, setContentsCoins] = useState<CoinDetailsViewType[] | undefined>([]);
-  const [priceHistory, setPriceHistory] = useState<PriceHistoryType[]>([]);
-
-  const coinGeckoBaseUrl = 'https://api.coingecko.com/api/v3/simple/price?ids='
+  const [vsCurrencies, setVsCurrencies] = useState('usd');
+  const [coinsArr, setCoinsArr] = useState<CoinsSlashMarkets[] | undefined>();
 
   useEffect(() => {
-    let contentsCoinsArr: CoinDetailsViewType[] | any = [];
+    // Map fw backend wallet response coins into an array
+    let walletContentsArr: CoinDetailsViewType[] = [];
     Object.keys(walletData.contents).map(
-      (contentsCoinKey: any, i) => contentsCoinsArr.push(walletData.contents[contentsCoinKey]) // ?? wat?
+      (contentsCoinKey: any, i) => walletContentsArr.push(walletData.contents[contentsCoinKey]) // ?? wat?
     );
-    console.log(contentsCoinsArr);
-    setContentsCoins(contentsCoinsArr);
-  }, []);
+    //base url for coingecko coins/markets
+    let CoinsSlashMarketsURL = 'https://api.coingecko.com/api/v3/coins/markets?';
+    //add vs_currency to request url
+    CoinsSlashMarketsURL = `${CoinsSlashMarketsURL}vs_currency=${vsCurrencies}&ids=`;
+    //add wallet contents to request url
+    walletContentsArr.forEach((coin) => {
+      CoinsSlashMarketsURL = CoinsSlashMarketsURL.concat(`${coin.id}%2C`);
+    });
+    //trim end of url
+    CoinsSlashMarketsURL = CoinsSlashMarketsURL.slice(0, -3);
+    console.log(CoinsSlashMarketsURL);
 
-  if (!contentsCoins) {
-    return <div>can not get coins!</div>;
+    fetch(CoinsSlashMarketsURL)
+      .then((response) => response.json())
+      .then((data) => setCoinsArr(data));
+  }, []);
+  if (!coinsArr) {
+    return <div>loading</div>;
   }
 
   return (
@@ -67,16 +74,17 @@ export default function ViewWalletFrom({ walletData }: { walletData: WalletFormD
                   </tr>
                 </thead>
                 <tbody>
-                  {contentsCoins.map((coin, i) => (
+                  {coinsArr.map((coin, i) => (
                     <tr key={i}>
                       <td className="px-5 py-5 text-sm bg-white border-b border-gray-200">
                         <div className="flex items-center">
                           <div className="flex-shrink-0">
                             <a href="#" className="relative block">
-                              <img
-                                alt="profil"
-                                src="/images/person/8.jpg"
-                                className="mx-auto object-cover rounded-full h-10 w-10 "
+                              <Image
+                                src={coin.image}
+                                alt="Picture of the crypto currency"
+                                width={500}
+                                height={500}
                               />
                             </a>
                           </div>
