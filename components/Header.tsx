@@ -32,6 +32,14 @@ export const Header = () => {
     }
   };
 
+  const [typedAddress, setTypedAddress] = useState('');
+  const handleSubmit = (e: any) => {
+    e.preventDefault();
+    console.log(typedAddress);
+    console.log('click');
+    router.push(typedAddress);
+  };
+
   return (
     <div>
       <nav className="bg-white dark:bg-gray-800  shadow py-4 ">
@@ -118,13 +126,21 @@ export const Header = () => {
               </div>
               <div className="hidden md:block">
                 <div className="flex -mr-2 md:block">
-                  <form className="flex flex-col justify-center w-3/4 max-w-sm space-y-3 md:flex-row md:w-full md:space-x-3 md:space-y-0">
+                  <form
+                    onSubmit={handleSubmit}
+                    className="flex flex-col justify-center w-3/4 max-w-sm space-y-3 md:flex-row md:w-full md:space-x-3 md:space-y-0"
+                  >
                     <div className=" relative ">
                       <input
                         type="text"
-                        id='"form-subscribe-Search'
+                        id='"form-wallet-search'
                         className=" rounded-lg border-transparent flex-1 appearance-none border border-gray-300 w-full py-2 px-4 bg-white text-gray-700 placeholder-gray-400 shadow-sm text-base focus:outline-none focus:ring-2 focus:ring-purple-600 focus:border-transparent"
                         placeholder="Search Wallet"
+                        pattern="[123456789ABCDEFGHJKLMNPRSTUVWXYZ]{10}"
+                        title="Address should have 10 characters"
+                        onChange={(e) => {
+                          setTypedAddress(e.target.value);
+                        }}
                       />
                     </div>
                     <button
@@ -168,7 +184,10 @@ export const Header = () => {
             </Link>
           </div>
           <div className="flex p-2">
-            <form className="flex flex-col justify-center w-3/4 max-w-sm space-y-3 md:flex-row md:w-full md:space-x-3 md:space-y-0">
+            <form
+              onSubmit={handleSubmit}
+              className="flex flex-col justify-center w-3/4 max-w-sm space-y-3 md:flex-row md:w-full md:space-x-3 md:space-y-0"
+            >
               <div className=" relative ">
                 <input
                   type="text"
