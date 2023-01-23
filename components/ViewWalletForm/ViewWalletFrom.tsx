@@ -4,32 +4,36 @@ import {
   CoinDetailsViewType,
   WalletContentsType,
 } from '../types/WalletFormDisplay';
-export default function ViewWalletFrom({
-  walletData,
-}: {
-  walletData: WalletFormDataType;
-}) {
-  const [contentsCoins, setContentsCoins] = useState<
-    CoinDetailsViewType[] | undefined
-  >([]);
+
+type PriceHistoryType = {
+  id: string;
+  price: number;
+  date: Date;
+};
+
+export default function ViewWalletFrom({ walletData }: { walletData: WalletFormDataType }) {
+  const [contentsCoins, setContentsCoins] = useState<CoinDetailsViewType[] | undefined>([]);
+  const [priceHistory, setPriceHistory] = useState<PriceHistoryType[]>([]);
+
+  const coinGeckoBaseUrl = 'https://api.coingecko.com/api/v3/simple/price?ids='
+
   useEffect(() => {
     let contentsCoinsArr: CoinDetailsViewType[] | any = [];
     Object.keys(walletData.contents).map(
-      (contentsCoinKey: any, i) =>
-        contentsCoinsArr.push(walletData.contents[contentsCoinKey]) // ?? wat?
+      (contentsCoinKey: any, i) => contentsCoinsArr.push(walletData.contents[contentsCoinKey]) // ?? wat?
     );
     console.log(contentsCoinsArr);
     setContentsCoins(contentsCoinsArr);
   }, []);
+
   if (!contentsCoins) {
     return <div>can not get coins!</div>;
   }
+
   return (
     <div>
       <div className="container max-w-3xl px-4 mx-auto sm:px-8">
-        <h2 className="text-center pt-8 text-2xl text-gray-700 ">
-          Contents of Your Farazy Wallet
-        </h2>
+        <h2 className="text-center pt-8 text-2xl text-gray-700 ">Contents of Your Farazy Wallet</h2>
         <div className="py-4">
           <div className="px-4 py-4 -mx-4 overflow-x-auto sm:-mx-8 sm:px-8">
             <div className="inline-block min-w-full overflow-hidden rounded-lg shadow">
@@ -85,9 +89,7 @@ export default function ViewWalletFrom({
                       </td>
                       <td className="px-5 py-5 text-sm bg-white border-b border-gray-200">
                         <div>
-                          <p className="text-gray-900 whitespace-no-wrap  text-end">
-                            {'$123456'}
-                          </p>
+                          <p className="text-gray-900 whitespace-no-wrap  text-end">{'$123456'}</p>
                           <p className="text-gray-500 whitespace-no-wrap text-end  text-xs">
                             {`= 1,00 ${coin.symbol.toUpperCase()}`}
                           </p>
