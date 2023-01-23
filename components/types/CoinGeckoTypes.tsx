@@ -1,4 +1,6 @@
 export type CoinsSlashMarkets = {
+  bought_amount: number;
+  bought_price: number;
   id: string;
   symbol: string;
   name: string;

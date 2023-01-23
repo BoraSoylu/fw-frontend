@@ -10,7 +10,7 @@ const WalletView = () => {
   const { address } = router.query;
   const [walletData, setWalletData] = useState<WalletFormDataType | undefined>(undefined);
   const { data, error } = useSWR(
-    'https://www.farazywallet.com/api/v1/wallet?address=BG596TCG57',
+    `https://www.farazywallet.com/api/v1/wallet?address=${router.query.address}`,
     fetcher
   );
   if (error) return 'An error has occurred.';
