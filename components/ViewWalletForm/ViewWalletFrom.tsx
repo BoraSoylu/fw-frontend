@@ -11,6 +11,7 @@ import { getCookie, hasCookie, setCookie } from 'cookies-next';
 export default function ViewWalletFrom({ walletData }: { walletData: WalletFormDataType }) {
   const [vsCurrencies, setVsCurrencies] = useState('usd');
   const [coinsArr, setCoinsArr] = useState<CoinsSlashMarkets[] | undefined | null>();
+  const [unitCoinView, setUnitCoinView] = useState<boolean>(false);
 
   useEffect(() => {
     // Map fw backend wallet response coins into an array
@@ -81,12 +82,24 @@ export default function ViewWalletFrom({ walletData }: { walletData: WalletFormD
     }).format(number)}`;
   };
   const calculateGainLoss = (coin: CoinsSlashMarkets) => {
-    return `${formatCurrency((coin.current_price - coin.bought_price) * coin.bought_amount)} (${
+    return `${formatCurrency(
+      (coin.current_price - coin.bought_price) * (unitCoinView ? 1 : coin.bought_amount)
+    )} (${
       coin.current_price > coin.bought_price
         ? (coin.current_price / coin.bought_price).toFixed(1)
         : (coin.bought_price / coin.current_price).toFixed(1)
     }%)`;
   };
+
+  const tableCellBg = () => {
+    return (
+      <span
+        aria-hidden="true"
+        className={`absolute inset-0 ${'bg-gray-300'} rounded-full opacity-50`}
+      ></span>
+    );
+  };
+
   if (!coinsArr) {
     return <div>loading</div>;
   }
@@ -96,6 +109,28 @@ export default function ViewWalletFrom({ walletData }: { walletData: WalletFormD
         <div className="py-4">
           <div className="px-4 py-4 -mx-4 overflow-x-auto sm:-mx-8 sm:px-8">
             <div className="inline-block min-w-full overflow-hidden rounded-lg shadow">
+              <div className="bg-white grid grid-cols-3 w-full py-2">
+                <div></div>
+                <p className="text-center text-2xl font-bold">Wallet Contents</p>
+                <div className="flex gap-2 justify-end pr-2">
+                  <span className="font-medium text-gray-400">Unit Coin View:</span>
+                  <div className="relative inline-block w-10 mr-2 align-middle select-none bg-white ">
+                    <input
+                      onChange={() => {
+                        setUnitCoinView(!unitCoinView);
+                      }}
+                      type="checkbox"
+                      name="unit-coin-view"
+                      id="unit-coin-view"
+                      className="checked:bg-blue-500 outline-none focus:outline-none right-4 checked:right-0 duration-200 ease-in absolute block w-6 h-6 rounded-full bg-white border-4 appearance-none cursor-pointer"
+                    />
+                    <label
+                      htmlFor="unit-coin-view"
+                      className="block h-6 overflow-hidden bg-gray-300 rounded-full cursor-pointer"
+                    ></label>
+                  </div>
+                </div>
+              </div>
               <table className="min-w-full leading-normal">
                 <thead>
                   <tr>
@@ -115,13 +150,22 @@ export default function ViewWalletFrom({ walletData }: { walletData: WalletFormD
                       scope="col"
                       className="px-5 py-3 text-sm font-normal text-end text-gray-800 uppercase bg-white border-b border-gray-200 whitespace-nowrap"
                     >
-                      Current
+                      Current Value
                     </th>
                     <th
                       scope="col"
                       className="px-5 py-3 text-sm font-normal text-end text-gray-800 uppercase bg-white border-b border-gray-200 whitespace-nowrap"
                     >
-                      You Bought
+                      {' '}
+                      <span className="relative inline-block px-3 py-1  leading-tight ">
+                        <span
+                          aria-hidden="true"
+                          className={`absolute inset-0 ${'bg-white'} rounded-full opacity-50`}
+                        ></span>
+                        <span className="relative">
+                          <p>Bought Value</p>
+                        </span>
+                      </span>
                     </th>
                     <th
                       scope="col"
@@ -167,24 +211,38 @@ export default function ViewWalletFrom({ walletData }: { walletData: WalletFormD
                       <td className="px-5 py-5 text-sm bg-white border-b border-gray-200">
                         <div>
                           <p className="text-gray-900 whitespace-no-wrap  text-end">
-                            {formatCurrency(coin.current_price * coin.bought_amount)}
+                            {formatCurrency(
+                              coin.current_price * (unitCoinView ? 1.0 : coin.bought_amount)
+                            )}
                           </p>
                           <p className="text-gray-500 whitespace-no-wrap text-end  text-xs">
-                            {`= ${coin.bought_amount} ${coin.symbol.toUpperCase()}`}
+                            {`= ${
+                              unitCoinView ? '1.00' : coin.bought_amount
+                            } ${coin.symbol.toUpperCase()}`}
                           </p>
                         </div>
                       </td>
-                      <td className="px-5 py-5 text-sm bg-white border-b border-gray-200">
-                        <div className="text-gray-900 whitespace-no-wrap">
-                          <p className="text-gray-900 whitespace-no-wrap  text-end">
-                            {formatCurrency(coin.bought_price * coin.bought_amount)}
-                          </p>
-                          <p className="text-gray-500 whitespace-no-wrap text-end  text-xs">
-                            {`${formatCurrency(
-                              coin.bought_price
-                            )} per ${coin.symbol.toUpperCase()}`}
-                          </p>
-                        </div>
+                      <td className="px-5 py-5 text-sm bg-white border-b border-gray-200 text-end">
+                        <span className="relative inline-block px-3 py-1 font-semibold text-end">
+                          <span
+                            aria-hidden="true"
+                            className="absolute inset-0 bg-white rounded-full opacity-50"
+                          ></span>
+                          <span className="relative">
+                            <div className="text-gray-900 whitespace-no-wrap">
+                              <p className="text-gray-900 whitespace-no-wrap  text-end">
+                                {formatCurrency(
+                                  coin.bought_price * (unitCoinView ? 1.0 : coin.bought_amount)
+                                )}
+                              </p>
+                              <p className="text-gray-500 whitespace-no-wrap text-end  text-xs">
+                                {`= ${
+                                  unitCoinView ? '1.00' : coin.bought_amount
+                                } ${coin.symbol.toUpperCase()}`}
+                              </p>
+                            </div>
+                          </span>
+                        </span>
                       </td>
                       <td className="px-5 py-5 text-sm bg-white border-b border-gray-200 whitespace-nowrap">
                         <span className="relative inline-block px-3 py-1 font-semibold leading-tight text-green-900">

@@ -113,12 +113,12 @@ export const Header = () => {
                       }}
                       checked={darkTheme ? true : false}
                       type="checkbox"
-                      name="toggle"
-                      id="Blue"
+                      name="dark-theme-toggle"
+                      id="dark-theme-toggle"
                       className="checked:bg-gray-500 outline-none focus:outline-none right-4 checked:right-0 duration-200 ease-in absolute block w-6 h-6 rounded-full bg-white border-4 appearance-none cursor-pointer"
                     />
                     <label
-                      htmlFor="Blue"
+                      htmlFor="dark-theme-toggle"
                       className="block h-6 overflow-hidden bg-gray-300 rounded-full cursor-pointer"
                     ></label>
                   </div>
