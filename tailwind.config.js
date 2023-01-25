@@ -5,6 +5,22 @@ module.exports = {
   darkMode: 'class',
   theme: {
     extend: {
+      colors: {
+        test: {
+          50: '#f5f6fa',
+          100: '#ebecf4',
+          200: '#d0d4e7',
+          300: '#a6b0d3',
+          400: '#7787bb',
+          500: '#6476af',
+          600: '#414f86',
+          700: '#36406d',
+          800: '#30385a',
+          900: '#2c324e',
+        },
+      },
+    },
+    extend: {
       backgroundImage: (theme) => ({
         check: "url('/icons/check.svg')",
         landscape: "url('/images/landscape/2.jpg')",
