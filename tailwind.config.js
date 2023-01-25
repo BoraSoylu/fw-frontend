@@ -6,7 +6,7 @@ module.exports = {
   theme: {
     extend: {
       colors: {
-        test: {
+        primary: {
           50: '#f5f6fa',
           100: '#ebecf4',
           200: '#d0d4e7',
@@ -19,15 +19,13 @@ module.exports = {
           900: '#2c324e',
         },
       },
-    },
-    extend: {
       backgroundImage: (theme) => ({
         check: "url('/icons/check.svg')",
         landscape: "url('/images/landscape/2.jpg')",
       }),
     },
     screens: {
-      md: '882px',
+      md: '920px',
     },
   },
   variants: {

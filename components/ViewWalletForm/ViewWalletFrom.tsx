@@ -12,6 +12,7 @@ export default function ViewWalletFrom({ walletData }: { walletData: WalletFormD
   const [vsCurrencies, setVsCurrencies] = useState('usd');
   const [coinsArr, setCoinsArr] = useState<CoinsSlashMarkets[] | undefined | null>();
   const [unitCoinView, setUnitCoinView] = useState<boolean>(false);
+  const [simpleCoinView, setSimpleCoinView] = useState(true);
 
   useEffect(() => {
     // Map fw backend wallet response coins into an array
@@ -75,10 +76,12 @@ export default function ViewWalletFrom({ walletData }: { walletData: WalletFormD
     }
   }, []);
   const formatCurrency = (number: number) => {
+    console.log(number);
+
     return `${new Intl.NumberFormat(undefined, {
       style: 'currency',
       currency: vsCurrencies.toUpperCase(),
-      maximumFractionDigits: 2,
+      maximumFractionDigits: simpleCoinView ? 2 : 8,
     }).format(number)}`;
   };
   const calculateGainLoss = (coin: CoinsSlashMarkets) => {
@@ -91,30 +94,39 @@ export default function ViewWalletFrom({ walletData }: { walletData: WalletFormD
     }%)`;
   };
 
-  const tableCellBg = () => {
-    return (
-      <span
-        aria-hidden="true"
-        className={`absolute inset-0 ${'bg-gray-300'} rounded-full opacity-50`}
-      ></span>
-    );
-  };
-
   if (!coinsArr) {
     return <div>loading</div>;
   }
   return (
     <div>
-      <div className="container max-w-5xl px-4 mx-auto sm:px-8">
-        <div className="py-4">
+      <div className="container max-w-7xl px-4 mx-auto sm:px-8">
+        <div className="py-6">
           <div className="px-4 py-4 -mx-4 overflow-x-auto sm:-mx-8 sm:px-8">
             <div className="inline-block min-w-full overflow-hidden rounded-lg shadow">
-              <div className="bg-white grid grid-cols-3 w-full py-2">
-                <div></div>
+              <div className="bg-white dark:bg-gray-800 dark:text-gray-100 grid grid-cols-3 w-full py-2">
+                <div className="flex gap-2 pl-4">
+                  <span className="font-medium text-gray-400">Simple view:</span>
+                  <div className="relative inline-block w-10 mr-2 align-middle select-none bg-white dark:bg-gray-800 dark:text-gray-100 ">
+                    <input
+                      onChange={() => {
+                        setSimpleCoinView(!simpleCoinView);
+                      }}
+                      defaultChecked={true}
+                      type="checkbox"
+                      name="simple-coin-view"
+                      id="simple-coin-view"
+                      className="checked:bg-gray-500 outline-none focus:outline-none right-4 checked:right-0 duration-200 ease-in absolute block w-6 h-6 rounded-full bg-white dark:bg-gray-800 dark:text-gray-100 border-4 appearance-none cursor-pointer"
+                    />
+                    <label
+                      htmlFor="simple-coin-view"
+                      className="block h-6 overflow-hidden bg-gray-300 rounded-full cursor-pointer"
+                    ></label>
+                  </div>
+                </div>
                 <p className="text-center text-2xl font-bold">Wallet Contents</p>
                 <div className="flex gap-2 justify-end pr-2">
                   <span className="font-medium text-gray-400">Unit Coin View:</span>
-                  <div className="relative inline-block w-10 mr-2 align-middle select-none bg-white ">
+                  <div className="relative inline-block w-10 mr-2 align-middle select-none bg-white dark:bg-gray-800 dark:text-gray-100 ">
                     <input
                       onChange={() => {
                         setUnitCoinView(!unitCoinView);
@@ -122,7 +134,7 @@ export default function ViewWalletFrom({ walletData }: { walletData: WalletFormD
                       type="checkbox"
                       name="unit-coin-view"
                       id="unit-coin-view"
-                      className="checked:bg-blue-500 outline-none focus:outline-none right-4 checked:right-0 duration-200 ease-in absolute block w-6 h-6 rounded-full bg-white border-4 appearance-none cursor-pointer"
+                      className="checked:bg-gray-500 outline-none focus:outline-none right-4 checked:right-0 duration-200 ease-in absolute block w-6 h-6 rounded-full bg-white dark:bg-gray-800 dark:text-gray-100 border-4 appearance-none cursor-pointer"
                     />
                     <label
                       htmlFor="unit-coin-view"
@@ -136,31 +148,31 @@ export default function ViewWalletFrom({ walletData }: { walletData: WalletFormD
                   <tr>
                     <th
                       scope="col"
-                      className="px-5 py-3 text-sm font-normal text-left text-gray-800 uppercase bg-white border-b border-gray-200 whitespace-nowrap"
+                      className="px-5 py-3 text-sm font-normal text-left text-gray-800 uppercase bg-white dark:bg-gray-800 dark:text-gray-100 border-b border-gray-200 whitespace-nowrap"
                     >
                       {'Coin (Symbol)'}
                     </th>
                     <th
                       scope="col"
-                      className="px-5 py-3 text-sm font-normal text-end text-gray-800 uppercase bg-white border-b border-gray-200 whitespace-nowrap"
+                      className="px-5 py-3 text-sm font-normal text-end text-gray-800 uppercase bg-white dark:bg-gray-800 dark:text-gray-100 border-b border-gray-200 whitespace-nowrap"
                     >
                       In Wallet
                     </th>
                     <th
                       scope="col"
-                      className="px-5 py-3 text-sm font-normal text-end text-gray-800 uppercase bg-white border-b border-gray-200 whitespace-nowrap"
+                      className="px-5 py-3 text-sm font-normal text-end text-gray-800 uppercase bg-white dark:bg-gray-800 dark:text-gray-100 border-b border-gray-200 whitespace-nowrap"
                     >
                       Current Value
                     </th>
                     <th
                       scope="col"
-                      className="px-5 py-3 text-sm font-normal text-end text-gray-800 uppercase bg-white border-b border-gray-200 whitespace-nowrap"
+                      className="px-5 py-3 text-sm font-normal text-end text-gray-800 uppercase bg-white dark:bg-gray-800 dark:text-gray-100 border-b border-gray-200 whitespace-nowrap"
                     >
                       {' '}
                       <span className="relative inline-block px-3 py-1  leading-tight ">
                         <span
                           aria-hidden="true"
-                          className={`absolute inset-0 ${'bg-white'} rounded-full opacity-50`}
+                          className={`absolute inset-0 ${'bg-white dark:bg-gray-800 dark:text-gray-100'} rounded-full opacity-50`}
                         ></span>
                         <span className="relative">
                           <p>Bought Value</p>
@@ -169,16 +181,20 @@ export default function ViewWalletFrom({ walletData }: { walletData: WalletFormD
                     </th>
                     <th
                       scope="col"
-                      className="px-5 py-3 text-sm font-normal text-left text-gray-800 uppercase bg-white border-b border-gray-200 whitespace-nowrap text-center"
+                      className="px-5 py-3 text-sm font-normal  text-gray-800 uppercase bg-white dark:bg-gray-800 dark:text-gray-100 border-b border-gray-200 whitespace-nowrap text-end"
                     >
                       Gain/Loss
                     </th>
+                    <th
+                      scope="col"
+                      className="px-5 py-3 text-sm font-normal  text-gray-800 uppercase bg-white dark:bg-gray-800 dark:text-gray-100 border-b border-gray-200 whitespace-nowrap text-end"
+                    ></th>
                   </tr>
                 </thead>
                 <tbody>
                   {coinsArr.map((coin, i) => (
                     <tr key={i}>
-                      <td className="px-5 py-5 text-sm bg-white border-b border-gray-200">
+                      <td className="px-5 py-5 text-sm bg-white dark:bg-gray-800 dark:text-gray-100 border-b border-gray-200">
                         <div className="flex items-center w-max h-max">
                           <div className="flex-shrink-0">
                             <a
@@ -195,47 +211,34 @@ export default function ViewWalletFrom({ walletData }: { walletData: WalletFormD
                             </a>
                           </div>
                           <div className="ml-2">
-                            <p className="text-gray-900 whitespace-no-wrap">
+                            <p className="text-gray-900 dark:text-gray-200 whitespace-no-wrap">
                               {`${coin.name} (${coin.symbol.toUpperCase()})`}
                             </p>
                           </div>
                         </div>
                       </td>
-                      <td className="px-5 py-5 text-sm bg-white border-b border-gray-200">
+                      <td className="px-5 py-5 text-sm bg-white dark:bg-gray-800 dark:text-gray-100 border-b border-gray-200">
                         <div>
-                          <p className="text-gray-900 whitespace-no-wrap  text-end">
+                          <p className="text-gray-900 dark:text-gray-200 whitespace-no-wrap font-semibold text-end">
                             {`${coin.bought_amount} ${coin.symbol.toUpperCase()}`}
                           </p>
                         </div>
                       </td>
-                      <td className="px-5 py-5 text-sm bg-white border-b border-gray-200">
-                        <div>
-                          <p className="text-gray-900 whitespace-no-wrap  text-end">
-                            {formatCurrency(
-                              coin.current_price * (unitCoinView ? 1.0 : coin.bought_amount)
-                            )}
-                          </p>
-                          <p className="text-gray-500 whitespace-no-wrap text-end  text-xs">
-                            {`= ${
-                              unitCoinView ? '1.00' : coin.bought_amount
-                            } ${coin.symbol.toUpperCase()}`}
-                          </p>
-                        </div>
-                      </td>
-                      <td className="px-5 py-5 text-sm bg-white border-b border-gray-200 text-end">
+
+                      <td className="px-5 py-5 text-sm bg-white dark:bg-gray-800 dark:text-gray-100 border-b border-gray-200 text-end">
                         <span className="relative inline-block px-3 py-1 font-semibold text-end">
                           <span
                             aria-hidden="true"
-                            className="absolute inset-0 bg-white rounded-full opacity-50"
+                            className="absolute inset-0 bg-white dark:bg-gray-800 dark:text-gray-100 rounded-full opacity-50"
                           ></span>
                           <span className="relative">
-                            <div className="text-gray-900 whitespace-no-wrap">
-                              <p className="text-gray-900 whitespace-no-wrap  text-end">
+                            <div className="text-gray-900 dark:text-gray-200 whitespace-no-wrap">
+                              <p className="text-gray-900 dark:text-gray-200 whitespace-no-wrap  text-end">
                                 {formatCurrency(
-                                  coin.bought_price * (unitCoinView ? 1.0 : coin.bought_amount)
+                                  coin.current_price * (unitCoinView ? 1.0 : coin.bought_amount)
                                 )}
                               </p>
-                              <p className="text-gray-500 whitespace-no-wrap text-end  text-xs">
+                              <p className="text-gray-500 dark:text-gray-400 whitespace-no-wrap text-end  text-xs">
                                 {`= ${
                                   unitCoinView ? '1.00' : coin.bought_amount
                                 } ${coin.symbol.toUpperCase()}`}
@@ -244,17 +247,49 @@ export default function ViewWalletFrom({ walletData }: { walletData: WalletFormD
                           </span>
                         </span>
                       </td>
-                      <td className="px-5 py-5 text-sm bg-white border-b border-gray-200 whitespace-nowrap">
-                        <span className="relative inline-block px-3 py-1 font-semibold leading-tight text-green-900">
+                      <td className="px-5 py-5 text-sm bg-white dark:bg-gray-800 dark:text-gray-100 border-b border-gray-200 text-end">
+                        <span className="relative inline-block px-3 py-1 font-semibold text-end">
+                          <span
+                            aria-hidden="true"
+                            className="absolute inset-0 bg-white dark:bg-gray-800 dark:text-gray-100 rounded-full opacity-50"
+                          ></span>
+                          <span className="relative">
+                            <div className="text-gray-900 dark:text-gray-200 whitespace-no-wrap">
+                              <p className="text-gray-900 dark:text-gray-200 whitespace-no-wrap  text-end">
+                                {formatCurrency(
+                                  coin.bought_price * (unitCoinView ? 1.0 : coin.bought_amount)
+                                )}
+                              </p>
+                              <p className="text-gray-500 dark:text-gray-400 whitespace-no-wrap text-end  text-xs">
+                                {`= ${
+                                  unitCoinView ? '1.00' : coin.bought_amount
+                                } ${coin.symbol.toUpperCase()}`}
+                              </p>
+                            </div>
+                          </span>
+                        </span>
+                      </td>
+                      <td className="px-5 py-5 text-sm bg-white dark:bg-gray-800 dark:text-gray-100 border-b border-gray-200 whitespace-nowrap text-end">
+                        <span
+                          className={`relative inline-block px-3 py-1 font-semibold leading-tight ${
+                            coin.bought_price > coin.current_price
+                              ? 'text-red-600 dark:text-red-400'
+                              : 'text-green-600 dark:text-green-400'
+                          }
+                          `}
+                        >
                           <span
                             aria-hidden="true"
                             className={`absolute inset-0 ${
-                              coin.bought_price > coin.current_price ? 'bg-red-200' : 'bg-green-200'
+                              coin.bought_price > coin.current_price
+                                ? 'bg-red-200 dark:bg-red-900'
+                                : 'bg-green-200 dark:bg-green-900'
                             } rounded-full opacity-50`}
                           ></span>
                           <span className="relative">{calculateGainLoss(coin)}</span>
                         </span>
                       </td>
+                      <td className="px-5 py-5 text-sm bg-white dark:bg-gray-800 dark:text-gray-100 border-b border-gray-200 whitespace-nowrap"></td>
                     </tr>
                   ))}
                 </tbody>

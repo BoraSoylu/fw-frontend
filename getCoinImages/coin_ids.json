@@ -16810,7 +16810,7 @@
     "name": "Dollars"
   },
   {
-    "id": "domain-coin",
+    "id": "dogray-coin",
     "symbol": "dmn",
     "name": "Domain Coin"
   },
@@ -27650,7 +27650,7 @@
     "name": "Inter Stable Token"
   },
   {
-    "id": "interstellar-domain-order",
+    "id": "interstellar-dogray-order",
     "symbol": "ido",
     "name": "Interstellar Domain Order"
   },
@@ -40745,7 +40745,7 @@
     "name": "Paribus"
   },
   {
-    "id": "paris-saint-germain-fan-token",
+    "id": "paris-saint-gergray-fan-token",
     "symbol": "psg",
     "name": "Paris Saint-Germain Fan Token"
   },
