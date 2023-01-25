@@ -77,14 +77,14 @@ export default function ViewWalletFrom({ walletData }: { walletData: WalletFormD
     return `${new Intl.NumberFormat(undefined, {
       style: 'currency',
       currency: vsCurrencies.toUpperCase(),
-      maximumFractionDigits: 20,
+      maximumFractionDigits: 2,
     }).format(number)}`;
   };
   const calculateGainLoss = (coin: CoinsSlashMarkets) => {
-    return `${formatCurrency(coin.current_price - coin.bought_price * coin.bought_amount)} (${
+    return `${formatCurrency((coin.current_price - coin.bought_price) * coin.bought_amount)} (${
       coin.current_price > coin.bought_price
-        ? ((coin.current_price / coin.bought_price) * 100).toFixed(1)
-        : ((coin.bought_price / coin.current_price) * 100).toFixed(1)
+        ? (coin.current_price / coin.bought_price).toFixed(1)
+        : (coin.bought_price / coin.current_price).toFixed(1)
     }%)`;
   };
   if (!coinsArr) {
@@ -93,7 +93,6 @@ export default function ViewWalletFrom({ walletData }: { walletData: WalletFormD
   return (
     <div>
       <div className="container max-w-5xl px-4 mx-auto sm:px-8">
-        <h2 className="text-center pt-8 text-2xl text-gray-700 ">Contents of Your Farazy Wallet</h2>
         <div className="py-4">
           <div className="px-4 py-4 -mx-4 overflow-x-auto sm:-mx-8 sm:px-8">
             <div className="inline-block min-w-full overflow-hidden rounded-lg shadow">
@@ -191,7 +190,9 @@ export default function ViewWalletFrom({ walletData }: { walletData: WalletFormD
                         <span className="relative inline-block px-3 py-1 font-semibold leading-tight text-green-900">
                           <span
                             aria-hidden="true"
-                            className="absolute inset-0 bg-green-200 rounded-full opacity-50"
+                            className={`absolute inset-0 ${
+                              coin.bought_price > coin.current_price ? 'bg-red-200' : 'bg-green-200'
+                            } rounded-full opacity-50`}
                           ></span>
                           <span className="relative">{calculateGainLoss(coin)}</span>
                         </span>

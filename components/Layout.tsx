@@ -16,11 +16,11 @@ const Layout = ({ children }: { children: React.ReactNode }) => {
   }, []);
 
   return (
-    <>
+    <div className="dark:bg-gray-900 flex flex-col justify-between min-h-screen w-screen">
       <Navbar />
       <main>{children}</main>
       <Footer />
-    </>
+    </div>
   );
 };
 

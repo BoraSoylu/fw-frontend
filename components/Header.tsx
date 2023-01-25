@@ -43,7 +43,7 @@ export const Header = () => {
   return (
     <div>
       <nav className="bg-white dark:bg-gray-800  shadow py-4 ">
-        <div className=" px-8 mx-auto max-w-7xl">
+        <div className="px-8 mx-auto max-w-7xl">
           <div className="flex items-center justify-between h-16">
             <div className="flex items-center">
               <div className="test flex items-center justify-between gap-3">
