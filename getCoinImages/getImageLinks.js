@@ -1,52 +1,53 @@
 const axios = require('axios');
 const fs = require('fs');
-const callRate = 5;
+const { format } = require('path');
 
-//load current images
-let coin_images = fs.readFileSync('coin_images.json');
-coin_images = JSON.parse(coin_images);
-//load coin info
-let coin_ids = fs.readFileSync('coin_ids.json');
-coin_ids = JSON.parse(coin_ids);
+let objectArray = [];
+const totalPages = 50;
+main();
 
-const addToJson = (id, image, current_index) => {
-  coin_images[id] = image;
-  const json = JSON.stringify(coin_images);
-  coin_images.total_responses = coin_images.total_responses + 1;
-  fs.writeFile('coin_images.json', json, 'utf8', (err) => {
+function main() {
+  for (let i = 1; i < totalPages + 1; i++) {
+    setTimeout(() => {
+      requestPage(i);
+    }, i * 10000);
+  }
+}
+
+function formatImageUrl(url) {
+  const firstPart = url.substring(url.indexOf('images/') + 7, url.indexOf('/large'));
+  const secondPart = url.substring(url.indexOf('large') + 6, url.indexOf('?'));
+  const returnStr = firstPart + '-' + secondPart;
+  return returnStr;
+}
+
+function writeToJson() {
+  const jsonContent = JSON.stringify(objectArray);
+
+  fs.writeFile('./coin_images.json', jsonContent, 'utf8', function (err) {
     if (err) {
-      console.error(err);
-      return;
+      return console.log(err);
     }
-    console.log(
-      `coin: ${id} with image: ${image} was written. Response per minute: ${
-        (coin_images.total_responses / coin_images.total_calls) * callRate
-      }`
-    );
   });
-};
+}
 
-const getImageAndAddToJson = () => {
-  coin_images.total_calls = coin_images.total_calls + 1;
+function requestPage(current_page) {
   axios
     .get(
-      `https://api.coingecko.com/api/v3/coins/${
-        coin_ids[coin_images.currentIndex].id
-      }/history?date=23-01-2023`
+      `https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&order=market_cap_desc&per_page=250&page=${current_page}&sparkline=false`
     )
-    .then(function (response) {
-      if (response.data.image) {
-        coin_images.currentIndex = coin_images.currentIndex + 1;
-        addToJson(coin_ids[coin_images.currentIndex].id, response.data.image.small);
+    .then((response) => {
+      if (response.data) {
+        response.data.forEach((coin) => {
+          objectArray.push({ [coin.id]: formatImageUrl(coin.image) });
+          console.log(`Coin: ${coin.id} Image: ${formatImageUrl(coin.image)}`);
+          console.log(`Current page: ${current_page}`); 
+        });
+        if (current_page === totalPages) {
+          writeToJson();
+        }
+        current_page = current_page + 1;
       }
     })
-    .catch((err) => {
-      console.log(
-        `Rate limited. Response per minute: ${
-          (coin_images.total_responses / coin_images.total_calls) * callRate
-        }`
-      );
-    });
-};
-
-setInterval(getImageAndAddToJson, callRate * 1000);
+    .catch((err) => console.log(`Error: ${err}`));
+}

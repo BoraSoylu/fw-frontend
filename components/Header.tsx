@@ -42,7 +42,7 @@ export const Header = () => {
 
   return (
     <div>
-      <nav className="bg-white dark:bg-gray-800  shadow py-4 ">
+      <nav className="bg-white dark:bg-gray-800  shadow py-4 border-b">
         <div className="px-8 mx-auto max-w-7xl">
           <div className="flex items-center justify-between h-16">
             <div className="flex items-center">
@@ -76,10 +76,10 @@ export const Header = () => {
                     Home
                   </Link>
                   <Link
-                    className={router.pathname == '/about' ? activeTab : inactiveTab}
-                    href="/about"
+                    className={router.pathname == '/create' ? activeTab : inactiveTab}
+                    href="/create"
                   >
-                    About
+                    Create Wallet
                   </Link>
                   <Link className={router.pathname == '/faq' ? activeTab : inactiveTab} href="/faq">
                     FAQ
@@ -94,14 +94,22 @@ export const Header = () => {
               </div>
             </div>
             <div className="flex gap-4">
-              <div className="flex justify-end gap-2 items-center">
-                <div
-                  onClick={() => {
-                    console.log(darkTheme);
-                  }}
+              <div className="flex justify-end gap-1 items-center">
+                EN
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  strokeWidth={1.5}
+                  stroke="currentColor"
+                  className="w-6 h-6"
                 >
-                  lang
-                </div>
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    d="M19.5 8.25l-7.5 7.5-7.5-7.5"
+                  />
+                </svg>
 
                 <div>
                   <div
@@ -181,10 +189,10 @@ export const Header = () => {
               Home
             </Link>
             <Link
-              className={router.pathname == '/about' ? activeBurgerTab : inactiveBurgerTab}
-              href="/about"
+              className={router.pathname == '/create' ? activeBurgerTab : inactiveBurgerTab}
+              href="/create"
             >
-              About
+              Create Wallet
             </Link>
             <Link
               className={router.pathname == '/faq' ? activeBurgerTab : inactiveBurgerTab}
