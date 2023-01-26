@@ -8,9 +8,16 @@ import { CoinsSlashMarkets } from '../types/CoinGeckoTypes';
 import Image from 'next/image';
 import { getCookie, hasCookie, setCookie } from 'cookies-next';
 
-export default function ViewWalletFrom({ walletData }: { walletData: WalletFormDataType }) {
+export default function ViewWalletFrom({
+  walletData,
+  coinsArr,
+  setCoinsArr,
+}: {
+  walletData: WalletFormDataType;
+  coinsArr: CoinsSlashMarkets[] | undefined;
+  setCoinsArr: any;
+}) {
   const [vsCurrencies, setVsCurrencies] = useState('usd');
-  const [coinsArr, setCoinsArr] = useState<CoinsSlashMarkets[] | undefined | null>();
   const [unitCoinView, setUnitCoinView] = useState<boolean>(false);
   const [simpleCoinView, setSimpleCoinView] = useState(true);
 
@@ -87,11 +94,7 @@ export default function ViewWalletFrom({ walletData }: { walletData: WalletFormD
   const calculateGainLoss = (coin: CoinsSlashMarkets) => {
     return `${formatCurrency(
       (coin.current_price - coin.bought_price) * (unitCoinView ? 1 : coin.bought_amount)
-    )} (${
-      coin.current_price > coin.bought_price
-        ? (coin.current_price / coin.bought_price).toFixed(1)
-        : (coin.bought_price / coin.current_price).toFixed(1)
-    }%)`;
+    )} (${(((coin.current_price - coin.bought_price) / coin.bought_price) * 100).toFixed(2)}%)`;
   };
 
   if (!coinsArr) {
