@@ -5,7 +5,7 @@ export default function Footer() {
     <footer className="bg-white dark:bg-gray-800 w-screen py-8 align-middle border-t">
       <div className="max-w-screen-xl px-3">
         <div className="flex justify-center ">
-          <p className="max-w-5xl text-center text-gray-400 hover:text-gray-800 dark:text-gray-300 dark:hover:text-white transition-colors duration-200">
+          <p className="max-w-5xl text-center text-gray-400 hover:text-gray-800 dark:text-gray-300 dark:hover:text-white transition-colors duration-200 hover:cursor-default">
             Lorem ipsum dolor sit amet consectetur adipisicing elit. Tenetur ea dolore magnam, in
             sequi amet facilis nostrum accusamus blanditiis quos labore. Aliquid quo optio sit
             libero necessitatibus ad rerum minus.

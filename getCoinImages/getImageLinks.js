@@ -39,9 +39,9 @@ function requestPage(current_page) {
     .then((response) => {
       if (response.data) {
         response.data.forEach((coin) => {
-          objectArray.push({ [coin.id]: formatImageUrl(coin.image) });
+          objectArray.push({ id: coin.id, im: formatImageUrl(coin.image) });
           console.log(`Coin: ${coin.id} Image: ${formatImageUrl(coin.image)}`);
-          console.log(`Current page: ${current_page}`); 
+          console.log(`Current page: ${current_page}`);
         });
         if (current_page === totalPages) {
           writeToJson();

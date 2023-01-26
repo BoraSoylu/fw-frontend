@@ -20,6 +20,7 @@ export default function ViewWalletFrom({
   const [vsCurrencies, setVsCurrencies] = useState('usd');
   const [unitCoinView, setUnitCoinView] = useState<boolean>(false);
   const [simpleCoinView, setSimpleCoinView] = useState(true);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     // Map fw backend wallet response coins into an array
@@ -44,6 +45,7 @@ export default function ViewWalletFrom({
         coins.push(JSON.parse(getCookie(coin.id)));
       });
       setCoinsArr(coins);
+      setLoading(false);
     } else {
       const getBoughtAmount = (id: string, attribute: string) => {
         let returnVar: any;
@@ -76,6 +78,7 @@ export default function ViewWalletFrom({
           });
           setCookie(walletData.address, 'true', { maxAge: 120 });
           setCoinsArr(coins);
+          setLoading(false);
         })
         .catch(() => {
           setCoinsArr(undefined);
@@ -97,8 +100,8 @@ export default function ViewWalletFrom({
     )} (${(((coin.current_price - coin.bought_price) / coin.bought_price) * 100).toFixed(2)}%)`;
   };
 
-  if (!coinsArr) {
-    return <div>loading</div>;
+  if (loading) {
+    return <p>loading</p>;
   }
   return (
     <div>

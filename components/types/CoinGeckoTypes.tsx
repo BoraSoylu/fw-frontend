@@ -28,3 +28,9 @@ export type CoinsSlashMarkets = {
   roi: number;
   last_updated: Date;
 };
+
+export type CoinsSlashList = {
+  id: string;
+  symbol: string;
+  name: string;
+};
