@@ -24,7 +24,7 @@ export default function Home() {
                   </h1>
                   <h2 className="mt-3 text-lg text-gray-500 sm:mt-5 sm:max-w-xl sm:mx-auto md:mt-5 md:text-xl lg:mx-0">
                     Create an imaginary wallet without logging in or providing any personal
-                    information! Access it anytime any where by writing down a simple address like
+                    information! Access it anytime anywhere by writing down a simple address like
                     this:{' '}
                     <Link className="" href={'/VL1JVE4EMS'}>
                       <span className="font-semibold hover:cursor-pointer underline text-green-500">

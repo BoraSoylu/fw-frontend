@@ -9,13 +9,19 @@ const Create = () => {
   useEffect(() => {
     fetch('https://api.coingecko.com/api/v3/coins/list')
       .then((response) => response.json())
-      .then((data) => console.log(data));
+      .then((data) => {
+        setAllCoins(data);
+        setLoading(false);
+      });
   }, []);
+
   return (
     <div className=" flex flex-col items-center">
       <CreateWalletForm
         selectedCurrency={selectedCurrency}
         setSelectedCurrency={setSelectedCurrency}
+        allCoins={allCoins}
+        loading={loading}
       />
     </div>
   );
