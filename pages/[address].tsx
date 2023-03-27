@@ -1,7 +1,7 @@
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
 import { WalletFormData, WalletFormDataType } from '../components/types/WalletFormDisplay';
-import ViewWalletFrom from '../components/ViewWalletForm/ViewWalletFrom';
+import ViewWalletFrom from '../components/ViewWallet/ViewWalletFrom';
 import useSWR from 'swr';
 import { CoinsSlashMarkets } from '../components/types/CoinGeckoTypes';
 const fetcher = (url: any) => fetch(url).then((res) => res.json());

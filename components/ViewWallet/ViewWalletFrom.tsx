@@ -276,6 +276,21 @@ export default function ViewWalletFrom({
                         </span>
                       </td>
                       <td className="px-5 py-5 text-sm bg-white dark:bg-gray-800 dark:text-gray-100 border-b border-gray-200 whitespace-nowrap text-end">
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          fill="none"
+                          viewBox="0 0 24 24"
+                          strokeWidth={1.5}
+                          stroke="currentColor"
+                          className="w-6 h-6"
+                        >
+                          <path
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                            d="M4.5 10.5L12 3m0 0l7.5 7.5M12 3v18"
+                          />
+                        </svg>
+
                         <span
                           className={`relative inline-block px-3 py-1 font-semibold leading-tight ${
                             coin.bought_price > coin.current_price
