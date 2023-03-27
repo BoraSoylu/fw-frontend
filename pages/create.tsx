@@ -1,5 +1,11 @@
+import { CreateWalletPanel } from '../components/CreateWallet/CreateWalletPanel';
+
 const Create = () => {
-  return <div>Create Wallet Panel</div>;
+  return (
+    <div className="flex justify-center">
+      <CreateWalletPanel />
+    </div>
+  );
 };
 
 export default Create;
