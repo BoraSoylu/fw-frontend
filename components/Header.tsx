@@ -37,7 +37,6 @@ export const Header = () => {
     e.preventDefault();
     console.log(typedAddress);
     console.log('click');
-    router.push(typedAddress);
   };
 
   return (
@@ -110,7 +109,6 @@ export const Header = () => {
                     d="M19.5 8.25l-7.5 7.5-7.5-7.5"
                   />
                 </svg>
-
                 <div>
                   <div
                     onClick={() => {
