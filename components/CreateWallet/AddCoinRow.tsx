@@ -1,6 +1,28 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 
 export const AddCoinRow = ({ currency }: { currency: string }) => {
+  // States for the coin name and debouncing
+  const [coinName, setCoinName] = useState('');
+  const [debouncedCoinName, setDebouncedCoinName] = useState('');
+
+  useEffect(() => {
+    const timeoutId = setTimeout(() => {
+      setDebouncedCoinName(coinName);
+    }, 500); // Set your desired timeout here (in milliseconds)
+
+    return () => {
+      clearTimeout(timeoutId);
+    };
+  }, [coinName]);
+
+  useEffect(() => {
+    console.log(debouncedCoinName);
+  }, [debouncedCoinName]);
+
+  const handleCoinNameChange = (event: { target: { value: React.SetStateAction<string> } }) => {
+    setCoinName(event.target.value);
+  };
+
   return (
     <div className="flex gap-2 max-w-4xl">
       <div className=" relative ">
@@ -25,6 +47,7 @@ export const AddCoinRow = ({ currency }: { currency: string }) => {
           id="coin-name"
           className=" rounded-lg border-transparent flex-1 appearance-none border border-gray-300 w-full py-2 px-4 pl-9 bg-white text-gray-700 placeholder-gray-400 shadow-sm text-base focus:outline-none focus:ring-2 focus:ring-green-600 focus:border-transparent"
           placeholder="Coin Name"
+          onChange={handleCoinNameChange}
         />
       </div>
       <div className=" relative flex items-center ">

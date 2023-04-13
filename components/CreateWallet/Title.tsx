@@ -7,6 +7,7 @@ export const Title = () => {
 
   const handleClick = () => {
     inputRef.current.focus(); // call the focus method on the input element reference
+    inputRef.current.select(); // call the focus method on the input element reference
   };
 
   return (
