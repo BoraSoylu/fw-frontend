@@ -16,10 +16,12 @@ export const CreateWalletPanel = () => {
 
   return (
     <div className="max-w-5xl flex flex-col gap-3">
-      <TotalAmountCard currency={currency} amount={1000} />
-      <Title />
-      <VsCurrency all_currencies={vsCurrencies} setCurrency={setCurrency} />
+      <div className="flex justify-between">
+        <Title />
+        <TotalAmountCard currency={currency} amount={1000} />
+      </div>
       <AddCoinRow currency={currency} />
+      <VsCurrency all_currencies={vsCurrencies} setCurrency={setCurrency} currency={currency} />
       <Note />
     </div>
   );

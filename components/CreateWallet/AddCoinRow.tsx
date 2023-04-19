@@ -1,26 +1,101 @@
 import React, { useEffect, useState } from 'react';
+import { ReactSearchAutocomplete } from 'react-search-autocomplete';
+import Image from 'next/image';
+
+type Item = {
+  id: number;
+  name: string;
+  icon: string;
+  api_id: string;
+  symbol: string;
+};
+type ApiItem = {
+  api_symbol: string;
+  id: string;
+  large: string;
+  name: string;
+  symbol: string;
+  thumb: string;
+  market_cap_rank: number;
+};
 
 export const AddCoinRow = ({ currency }: { currency: string }) => {
-  // States for the coin name and debouncing
-  const [coinName, setCoinName] = useState('');
-  const [debouncedCoinName, setDebouncedCoinName] = useState('');
-
+  const [coins, setCoins] = useState<Item[]>([]);
+  const [selectedCoin, setSelectedCoin] = useState<Item>({
+    id: 0,
+    name: '',
+    icon: '',
+    api_id: '',
+    symbol: '',
+  });
+  const [exchangeRate, setExchangeRate] = useState();
+  const [coinAmount, setCoinAmount] = useState<string | number>('');
+  const [coinAmountInVs, setCoinAmountInVs] = useState<string | number>('');
   useEffect(() => {
-    const timeoutId = setTimeout(() => {
-      setDebouncedCoinName(coinName);
-    }, 500); // Set your desired timeout here (in milliseconds)
+    fetch(`https://api.coingecko.com/api/v3/search?query=`)
+      .then((response) => response.json())
+      .then((data) => {
+        const mappedCoins = data.coins.map((coin: ApiItem, index: Number) => ({
+          id: index,
+          name: coin.name,
+          icon: coin.large,
+          api_id: coin.id,
+          symbol: coin.symbol,
+        }));
+        setCoins(mappedCoins);
+      });
+  }, []);
 
-    return () => {
-      clearTimeout(timeoutId);
-    };
-  }, [coinName]);
+  const handleOnSearch = (string: string, results) => {
+    // onSearch will have as the first callback parameter
+    // the string searched and for the second the results.
+  };
 
+  const handleOnHover = (result) => {
+    // the item hovered
+    // console.log(result);
+  };
+
+  const handleOnSelect = (item: Item) => {
+    // the item selected
+    setSelectedCoin(item);
+  };
   useEffect(() => {
-    console.log(debouncedCoinName);
-  }, [debouncedCoinName]);
+    if (selectedCoin.api_id !== '') {
+      fetch(
+        `https://api.coingecko.com/api/v3/coins/markets?vs_currency=${currency}&ids=${selectedCoin.api_id}&order=market_cap_desc&per_page=100&page=1&sparkline=false&locale=en
+        `
+      )
+        .then((response) => response.json())
+        .then((data) => {
+          setExchangeRate(data[0].current_price);
+        });
+    }
+  }, [selectedCoin, currency]);
 
-  const handleCoinNameChange = (event: { target: { value: React.SetStateAction<string> } }) => {
-    setCoinName(event.target.value);
+  const handleOnFocus = () => {
+    console.log('Focused');
+  };
+
+  const formatResult = (item: Item) => {
+    return (
+      <div className="flex items-center gap-2">
+        <Image src={item.icon} alt={`Icon of ${item.name}`} width={30} height={30} />
+        <span className="">{item.name}</span>
+      </div>
+    );
+  };
+
+  const handleChangeCoinAmount = (event) => {
+    const amount = event.target.value;
+    setCoinAmount(amount);
+    setCoinAmountInVs(amount * exchangeRate);
+  };
+
+  const handleChangeCoinAmountInVs = (event) => {
+    const amount = event.target.value;
+    setCoinAmountInVs(amount);
+    setCoinAmount(amount / exchangeRate);
   };
 
   return (
@@ -42,30 +117,61 @@ export const AddCoinRow = ({ currency }: { currency: string }) => {
             />
           </svg>
         </div>
-        <input
+        {/* <input
           type="text"
           id="coin-name"
           className=" rounded-lg border-transparent flex-1 appearance-none border border-gray-300 w-full py-2 px-4 pl-9 bg-white text-gray-700 placeholder-gray-400 shadow-sm text-base focus:outline-none focus:ring-2 focus:ring-green-600 focus:border-transparent"
           placeholder="Coin Name"
           onChange={handleCoinNameChange}
-        />
+          autoComplete="off"
+        /> */}
+        <div className="w-fit min-w-[400px] text-red-600" style={{}}>
+          {/* {selectedCoin.icon === '' ? (
+            <></>
+          ) : (
+            <Image
+              src={selectedCoin.icon}
+              alt={`Icon of ${selectedCoin.name}`}
+              width={30}
+              height={30}
+            />
+          )} */}
+          <ReactSearchAutocomplete
+            items={coins}
+            onSearch={handleOnSearch}
+            onHover={handleOnHover}
+            onSelect={handleOnSelect}
+            onFocus={handleOnFocus}
+            formatResult={formatResult}
+            // showItemsOnFocus={true}
+            maxResults={6}
+            showIcon={false}
+            placeholder="Coin Name"
+          />
+        </div>
       </div>
       <div className=" relative flex items-center ">
         <input
           type="text"
-          id="coin-name"
+          id="coin-amount"
           className=" rounded-lg border-transparent flex-1 appearance-none border border-gray-300 w-full py-2 px-4 pr-10 bg-white text-gray-700 placeholder-gray-400 shadow-sm text-base focus:outline-none focus:ring-2 focus:ring-green-600 focus:border-transparent"
-          placeholder="Amount"
+          placeholder={selectedCoin.api_id === '' ? 'Amount' : '1'}
+          autoComplete="off"
+          value={coinAmount}
+          onChange={handleChangeCoinAmount}
         />
-        <div className="absolute right-0 mr-2 ">{currency.toLocaleUpperCase()}</div>
+        <div className="absolute right-0 mr-2 ">{selectedCoin.symbol}</div>
       </div>
       <div className="self-center text-xl">=</div>
       <div className=" relative flex items-center ">
         <input
           type="text"
-          id="coin-name"
+          id="coin-amount-in-vs"
           className=" rounded-lg border-transparent flex-1 appearance-none border border-gray-300 w-full py-2 px-4 pr-10 bg-white text-gray-700 placeholder-gray-400 shadow-sm text-base focus:outline-none focus:ring-2 focus:ring-green-600 focus:border-transparent"
-          placeholder="Amount"
+          placeholder={selectedCoin.api_id === '' ? 'Amount' : `${exchangeRate}`}
+          autoComplete="off"
+          value={coinAmountInVs}
+          onChange={handleChangeCoinAmountInVs}
         />
         <div className="absolute right-0 mr-2 ">{currency.toLocaleUpperCase()}</div>
       </div>
