@@ -14,7 +14,9 @@ In addition, the domain name farazywallet.com has already been acquired for this
 
 ## Coingecko API
 
-To retrieve cryptocurrency data, Farazy Wallet uses the Coingecko API. Coingecko is a popular cryptocurrency data provider that offers a comprehensive set of APIs for retrieving real-time and historical cryptocurrency data. With the Coingecko API, Farazy Wallet can retrieve the latest prices, market caps, and other cryptocurrency data that is needed to simulate a cryptocurrency portfolio. 
+To retrieve cryptocurrency data, Farazy Wallet uses the Coingecko API. Coingecko is a popular cryptocurrency data provider that offers a comprehensive set of APIs for retrieving real-time and historical cryptocurrency data. With the Coingecko API, Farazy Wallet can retrieve the latest prices, market caps, and other cryptocurrency data that is needed to simulate a cryptocurrency portfolio.
+
+For more information on the Coingecko API, please refer to the [official documentation](https://www.coingecko.com/en/api/documentation).
 
 
 ## Technologies Used
