@@ -12,6 +12,10 @@ Eventually, this project will be hosted with Vercel. Vercel is a cloud platform 
 
 In addition, the domain name farazywallet.com has already been acquired for this project. Once the app is deployed on Vercel, I will configure the DNS settings to point to the Vercel deployment, so that users can access the app at [farazywallet.com](https://farazywallet.com).
 
+## Coingecko API
+
+To retrieve cryptocurrency data, Farazy Wallet uses the Coingecko API. Coingecko is a popular cryptocurrency data provider that offers a comprehensive set of APIs for retrieving real-time and historical cryptocurrency data. With the Coingecko API, Farazy Wallet can retrieve the latest prices, market caps, and other cryptocurrency data that is needed to simulate a cryptocurrency portfolio. 
+
 
 ## Technologies Used
 
