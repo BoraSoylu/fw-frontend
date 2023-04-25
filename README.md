@@ -1,6 +1,7 @@
 # Farazy Wallet Frontend
 
 This project is currently under development.
+
 The main purpose for this project is to advance my personal software engineering skills. 
 
 Welcome to the Farazy Wallet Frontend repository! This repository contains the frontend code for the Farazy Wallet app, which allows users to simulate how their cryptocurrency portfolio would have performed if they had invested in different cryptocurrencies at a particular time. With Farazy Wallet, users can create a fake crypto wallet and add any amount of their desired cryptocurrencies to the wallet. They can then view their wallet at any time by saving the URL. The app is anonymous and straightforward, and users don't need to log in to access their wallet.
@@ -11,7 +12,7 @@ This repository contains the code for the frontend portion of the app. If you're
 
 Eventually, this project will be hosted with Vercel. Vercel is a cloud platform for static sites and serverless functions that offers fast and scalable hosting. Once the project is ready for deployment, I will connect the Farazy Wallet repository to Vercel and deploy it using their platform.
 
-In addition, the domain name farazywallet.com has already been acquired for this project. Once the app is deployed on Vercel, I will configure the DNS settings to point to the Vercel deployment, so that users can access the app at [farazywallet.com](https://farazywallet.com).
+In addition, the domain name farazywallet.com has already been acquired for this project. Once the app is deployed on Vercel, I will configure the DNS settings to point to the Vercel deployment, so that users will be able to access the app at [farazywallet.com](https://farazywallet.com).
 
 ## Coingecko API
 
@@ -38,9 +39,7 @@ Farazy Wallet is built using the following technologies:
 
 - **Prettier**: An opinionated code formatter that enforces a consistent code style. Prettier automatically formats the code, which saves developers time and ensures that the code adheres to the team's coding standards.
 
-## Learning Topics
-
-Through working on this project, I am learning the following topics:
+## Through working on this project, I am learning the following topics
 
 ### Server-side Rendering
 
@@ -96,4 +95,7 @@ To get started with Farazy Wallet, follow these steps:
 5. Open your browser and go to `http://localhost:3000` to view the app.
 
 
+## What does Farazy mean?
+
+Farazi means imaginary in Turkish and since this is a project about imaginary crypto wallets I thought it would be fitting to use a "tech version" of the original word. 
 
