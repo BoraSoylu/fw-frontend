@@ -1,10 +1,11 @@
 # Farazy Wallet Frontend
 
 This project is currently under development.
+The main purpose for this project is to advance my personal software engineering skills. 
 
 Welcome to the Farazy Wallet Frontend repository! This repository contains the frontend code for the Farazy Wallet app, which allows users to simulate how their cryptocurrency portfolio would have performed if they had invested in different cryptocurrencies at a particular time. With Farazy Wallet, users can create a fake crypto wallet and add any amount of their desired cryptocurrencies to the wallet. They can then view their wallet at any time by saving the URL. The app is anonymous and straightforward, and users don't need to log in to access their wallet.
 
-This repository contains the code for the frontend portion of the app. If you're looking for the backend code, you can find it in the [Farazy Wallet Backend repository](https://github.com/yourusername/farazy-wallet-backend).
+This repository contains the code for the frontend portion of the app. If you're looking for the backend code, you can find it in the [Farazy Wallet Backend repository](https://github.com/BoraSoylu/fw-backend).
 
 ## Hosting with Vercel
 
