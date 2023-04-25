@@ -54,6 +54,10 @@ Client-side rendering (CSR) is the process of rendering web pages in the client'
 
 Static HTML generation involves generating HTML files at build time, rather than at runtime. This can improve page load times and reduce server load.
 
+### Search Engine Optimization
+
+Search Engine Optimization (SEO) is the process of optimizing a website to rank higher in search engine results pages. This can help increase traffic to our website and improve its visibility.
+
 ### Debouncing
 
 Debouncing is a technique used to limit the rate at which a function is called. This can prevent performance issues and improve user experience.
