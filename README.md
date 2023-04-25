@@ -1,36 +1,38 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# Farazy Wallet Frontend
+
+This project is currently under development.
+
+Welcome to the Farazy Wallet Frontend repository! This repository contains the frontend code for the Farazy Wallet app, which allows users to simulate how their cryptocurrency portfolio would have performed if they had invested in different cryptocurrencies at a particular time. With Farazy Wallet, users can create a fake crypto wallet and add any amount of their desired cryptocurrencies to the wallet. They can then view their wallet at any time by saving the URL. The app is anonymous and straightforward, and users don't need to log in to access their wallet.
+
+This repository contains the code for the frontend portion of the app. If you're looking for the backend code, you can find it in the [Farazy Wallet Backend repository](https://github.com/yourusername/farazy-wallet-backend).
+
+## Technologies Used
+
+Farazy Wallet is built using the following technologies:
+
+- **React.js**: A popular JavaScript library for building user interfaces. React.js makes it easy to create reusable components that can be used across an application.
+
+- **TypeScript**: A typed superset of JavaScript that provides better type checking and developer experience. With TypeScript, developers can catch errors before runtime, which makes the development process more efficient.
+
+- **Next.js**: A popular React framework for building server-side rendered web applications. Next.js provides several benefits, including built-in routing, automatic code splitting, and server-side rendering.
+
+- **ESLint**: A JavaScript linting tool that helps find and fix common coding issues. ESLint ensures that the code adheres to a consistent style and best practices, which makes the code more maintainable.
+
+- **Zod**: A TypeScript-first schema validation library that provides a great developer experience and great performance. With Zod, developers can ensure that data is correctly formatted and validated before being used.
+
+- **Tailwind CSS**: A utility-first CSS framework that makes it easy to create responsive and customizable UI components. Tailwind CSS provides several pre-built styles, making it easy to build a consistent and professional-looking user interface.
+
+- **Prettier**: An opinionated code formatter that enforces a consistent code style. Prettier automatically formats the code, which saves developers time and ensures that the code adheres to the team's coding standards.
 
 ## Getting Started
 
-First, run the development server:
+To get started with Farazy Wallet, follow these steps:
 
-```bash
-npm run dev
-# or
-yarn dev
-```
+1. Clone this repository to your local machine.
+2. Navigate to the project directory in your terminal.
+3. Run `npm install` to install the required dependencies.
+4. Run `npm run dev` to start the development server.
+5. Open your browser and go to `http://localhost:3000` to view the app.
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
-You can start editing the page by modifying `pages/index.tsx`. The page auto-updates as you edit the file.
 
-[API routes](https://nextjs.org/docs/api-routes/introduction) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.ts`.
-
-The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/api-routes/introduction) instead of React pages.
-
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
