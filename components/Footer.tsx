@@ -2,19 +2,19 @@ import React from 'react';
 
 export default function Footer() {
   return (
-    <footer className="bg-white dark:bg-gray-800 w-screen py-8 align-middle border-t">
+    <footer className=" w-screen border-t  bg-white py-8 align-middle dark:bg-gray-800">
       <div className="max-w-screen-xl px-3">
         <div className="flex justify-center ">
-          <p className="max-w-5xl text-center text-gray-400 hover:text-gray-800 dark:text-gray-300 dark:hover:text-white transition-colors duration-200 hover:cursor-default">
+          <p className="max-w-5xl text-center text-gray-400 transition-colors duration-200 hover:cursor-default hover:text-gray-800 dark:text-gray-300 dark:hover:text-white">
             Lorem ipsum dolor sit amet consectetur adipisicing elit. Tenetur ea dolore magnam, in
             sequi amet facilis nostrum accusamus blanditiis quos labore. Aliquid quo optio sit
             libero necessitatibus ad rerum minus.
           </p>
         </div>
-        <div className="pt-8 flex max-w-xs mx-auto items-center justify-between">
+        <div className="mx-auto flex max-w-xs items-center justify-between pt-8">
           <a
             href="#"
-            className="text-gray-400 transition-colors duration-200 hover:text-gray-800 dark:hover:text-white"
+            className="text-gray-400 transition-colors  duration-200 hover:text-gray-800 dark:hover:text-white"
           >
             <svg
               width="20"
