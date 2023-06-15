@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { AddedCoin } from './types';
 import Image from 'next/image';
+
 export const CoinRow = ({
   coin,
   currency,
@@ -49,7 +50,7 @@ export const CoinRow = ({
   };
   return (
     <tr>
-      <td className="px-5 py-5 text-sm bg-white border-b border-gray-200">
+      <td className="border-b border-gray-200 bg-white px-5 py-5 text-sm">
         <div className="flex items-center">
           <div className="flex-shrink-0">
             <a
@@ -63,40 +64,40 @@ export const CoinRow = ({
                 alt={`Icon of ${coin.name}`}
                 width={50}
                 height={50}
-                className="mx-auto object-cover rounded-full h-10 w-10 "
+                className="mx-auto h-10 w-10 rounded-full object-cover "
               />
             </a>
           </div>
           <div className="ml-3">
-            <p className="text-gray-900 whitespace-no-wrap">{coin.name}</p>
+            <p className="whitespace-no-wrap text-gray-900">{coin.name}</p>
           </div>
         </div>
       </td>
-      <td className="px-5 py-5 text-sm bg-white border-b border-gray-200 min-w-fit">
-        <span className="relative inline-block px-3 py-1 font-semibold  min-w-fit text-right">
+      <td className="min-w-fit border-b border-gray-200 bg-white px-5 py-5 text-sm">
+        <span className="relative inline-block min-w-fit px-3 py-1  text-right font-semibold">
           <span className="relative  min-w-fit whitespace-nowrap text-right">
             {`1 ${coin.symbol}`} <br /> {`= ${coin.price} ${currency}`}
           </span>
         </span>
       </td>
-      <td className="px-5 py-5 text-sm bg-white border-b border-gray-200">
+      <td className="border-b border-gray-200 bg-white px-5 py-5 text-sm">
         <div className=" relative ">
           <input
             type="text"
             id="coin-amount"
-            className="rounded-lg border-transparent flex-1 appearance-none border border-gray-300 w-full py-2 px-4 bg-white text-gray-700 placeholder-gray-400 shadow-sm text-base focus:outline-none focus:ring-2 focus:ring-green-600 focus:border-transparent"
+            className="w-full flex-1 appearance-none rounded-lg border border-transparent border-gray-300 bg-white py-2 px-4 text-base text-gray-700 placeholder-gray-400 shadow-sm focus:border-transparent focus:outline-none focus:ring-2 focus:ring-green-600"
             placeholder="Amount"
             onChange={handleAmountChange}
             value={amount}
           />
         </div>
       </td>
-      <td className="px-5 py-5 text-sm bg-white border-b border-gray-200">
+      <td className="border-b border-gray-200 bg-white px-5 py-5 text-sm">
         <div className=" relative ">
           <input
             type="text"
             id="amount-in-vs"
-            className=" rounded-lg border-transparent flex-1 appearance-none border border-gray-300 w-full py-2 px-4 bg-white text-gray-700 placeholder-gray-400 shadow-sm text-base focus:outline-none focus:ring-2 focus:ring-green-600 focus:border-transparent"
+            className=" w-full flex-1 appearance-none rounded-lg border border-transparent border-gray-300 bg-white py-2 px-4 text-base text-gray-700 placeholder-gray-400 shadow-sm focus:border-transparent focus:outline-none focus:ring-2 focus:ring-green-600"
             placeholder="Amount"
             onChange={handleVsAmountChange}
             value={vsAmount}
@@ -104,10 +105,10 @@ export const CoinRow = ({
         </div>
       </td>
 
-      <td className="px-5 py-5 text-sm bg-white border-b border-gray-200">
+      <td className="border-b border-gray-200 bg-white px-5 py-5 text-sm">
         <button
           type="button"
-          className="py-2 px-4 flex justify-center items-center  bg-red-600 hover:bg-red-700 focus:ring-red-500 focus:ring-offset-red-200 text-white w-full transition ease-in duration-200 text-center text-base font-semibold shadow-md focus:outline-none focus:ring-2 focus:ring-offset-2  rounded-lg "
+          className="flex w-full items-center justify-center rounded-lg  bg-red-600 py-2 px-4 text-center text-base font-semibold text-white shadow-md transition duration-200 ease-in hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-2  focus:ring-offset-red-200 "
         >
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -115,7 +116,7 @@ export const CoinRow = ({
             viewBox="0 0 24 24"
             strokeWidth={1.5}
             stroke="currentColor"
-            className="w-6 h-6"
+            className="h-6 w-6"
           >
             <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
           </svg>

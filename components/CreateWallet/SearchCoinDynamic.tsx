@@ -1,7 +1,9 @@
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { ReactSearchAutocomplete } from 'react-search-autocomplete';
 import Image from 'next/image';
 import { AddedCoin } from './types';
+import { ApiLimitModal } from '../ApiLimitModal';
+import { ApiLimitReachedContext } from '../../context/ApiLimitModalContext';
 type CoinApiReturn = {
   id: string;
   name: string;
@@ -31,41 +33,53 @@ export const SearchCoinDynamic = ({
   const [displayItems, setDisplayItems] = useState<Item[]>([]);
   const [loading, setLoading] = useState(true);
   const displayItemsCount = 5;
-
+  const { apiLimitReached, setApiLimitReached } = useContext(ApiLimitReachedContext);
   useEffect(() => {
-    const loadInitialCoins = async () => {
-      const response = await fetch(`https://api.coingecko.com/api/v3/search?query=${''}`);
-      const body = await response.json();
-      setDisplayItems(
-        body.coins.slice(0, displayItemsCount).map((coin: CoinApiReturn, index: Number) => ({
-          id: index,
-          name: coin.name,
-          icon: coin.large,
-          api_symbol: coin.id,
-          symbol: coin.symbol,
-          api_id: coin.id,
-        }))
-      );
-      setLoading(false);
-    };
-    loadInitialCoins();
+    try {
+      const loadInitialCoins = async () => {
+        const response = await fetch(`https://api.coingecko.com/api/v3/search?query=${''}`);
+        const body = await response.json();
+        setDisplayItems(
+          body.coins.slice(0, displayItemsCount).map((coin: CoinApiReturn, index: Number) => ({
+            id: index,
+            name: coin.name,
+            icon: coin.large,
+            api_symbol: coin.id,
+            symbol: coin.symbol,
+            api_id: coin.id,
+          }))
+        );
+        setLoading(false);
+      };
+      loadInitialCoins();
+    } catch (error) {
+      setApiLimitReached(true);
+      console.log('Api limit reached');
+    }
   }, []);
 
   // Search coingecko for user input
   async function search(currentCoinInput: string) {
-    const response = await fetch(
-      `https://api.coingecko.com/api/v3/search?query=${currentCoinInput}`
-    );
-    const body = await response.json();
-    const mappedCoins = body.coins.map((coin: CoinApiReturn, index: Number) => ({
-      id: index,
-      name: coin.name,
-      icon: coin.large,
-      api_symbol: coin.id,
-      symbol: coin.symbol,
-      api_id: coin.id,
-    }));
-    return mappedCoins;
+    try {
+      const response = await fetch(
+        `https://api.coingecko.com/api/v3/search?query=${currentCoinInput}`
+      );
+
+      const body = await response.json();
+
+      const mappedCoins = body.coins.map((coin: CoinApiReturn, index: Number) => ({
+        id: index,
+        name: coin.name,
+        icon: coin.large,
+        api_symbol: coin.id,
+        symbol: coin.symbol,
+        api_id: coin.id,
+      }));
+      return mappedCoins;
+    } catch (error) {
+      setApiLimitReached(true);
+      console.log('Api limit reached');
+    }
   }
 
   const handleOnSearch = async (string: string, results) => {
@@ -96,6 +110,8 @@ export const SearchCoinDynamic = ({
         price: undefined,
         symbol: item.symbol,
       };
+      console.log(newCoin);
+
       setAllAddedCoins((current) => [...current, newCoin]);
     }
     console.log(allAddedCoins);
@@ -127,7 +143,7 @@ export const SearchCoinDynamic = ({
         autoFocus
         maxResults={5}
         formatResult={formatResult}
-        showItemsOnFocus={true}
+        showItemsOnFocus={false}
         inputDebounce={600}
         placeholder="Coin Name"
       />

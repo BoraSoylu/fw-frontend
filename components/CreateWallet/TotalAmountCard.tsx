@@ -1,9 +1,22 @@
 import React from 'react';
+import { AddedCoin } from './types';
 
-export const TotalAmountCard = ({ currency, amount }: { currency: string; amount: number }) => {
+export const TotalAmountCard = ({
+  currency,
+  allAddedCoins,
+}: {
+  currency: string;
+  allAddedCoins: AddedCoin[];
+}) => {
+  const amount = allAddedCoins.reduce((acc, coin) => {
+    if (!coin.amount || !coin.price) {
+      return 0;
+    }
+    return acc + coin.amount * coin.price;
+  }, 0);
   return (
     <div className="">
-      <div className="w-36 h-34 p-4 bg-white shadow-lg rounded-2xl dark:bg-gray-800">
+      <div className="h-34 w-36 rounded-2xl bg-white p-4 shadow-lg dark:bg-gray-800">
         <div className="flex items-center">
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -11,7 +24,7 @@ export const TotalAmountCard = ({ currency, amount }: { currency: string; amount
             viewBox="0 0 24 24"
             strokeWidth={1.5}
             stroke="currentColor"
-            className="w-6 h-6"
+            className="h-6 w-6"
           >
             <path
               strokeLinecap="round"
@@ -20,11 +33,11 @@ export const TotalAmountCard = ({ currency, amount }: { currency: string; amount
             />
           </svg>
 
-          <p className="ml-2 text-black text-md dark:text-white">Total</p>
+          <p className="text-md ml-2 text-black dark:text-white">Total</p>
         </div>
         <div className="flex flex-col justify-start">
-          <p className="my-4 text-4xl font-bold text-left text-gray-700 dark:text-gray-100">
-            {amount}
+          <p className="my-4 text-left text-4xl font-bold text-gray-700 dark:text-gray-100">
+            {amount ? 0 : amount.toFixed(2)}
             <span className="text-sm">{currency}</span>
           </p>
         </div>
